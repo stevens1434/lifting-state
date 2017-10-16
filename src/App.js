@@ -17,8 +17,11 @@ class App extends Component {
     //  editId: The data-key index representing the item in the taskArray
     this.state = {
       taskArray: ['Buy food', 'Walk dogs', 'Make React lessons', 'Subvert the dominant paradigm'],
+      dateArray: ['10/15/2017', '10/15/2017', '10/15/2017', '10/15/2017'],
       editMode: false,
-      editId: ''
+      editId: '',
+      editDate: '',
+      newDate: ''
     };
 
     // Binders required to make sure 'this' stays on this class
@@ -26,6 +29,8 @@ class App extends Component {
     this.removeTask = this.removeTask.bind(this);
     this.editTask = this.editTask.bind(this);
     this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.editDate = this.editDate.bind(this);
+    this.toggleEditDate = this.toggleEditDate.bind(this);
   }
 
   // Method called by TaskAdder when the Add button is clicked
@@ -68,6 +73,24 @@ class App extends Component {
     });
   }
 
+  toggleEditDate(taskId) {
+    console.log("App::toggleEditMode");
+    this.setState({
+      editMode: true,
+      editId: taskId
+    });
+  }
+
+  editDate(newDate, value) {
+    var tempArr = this.state.dateArray;
+    tempArr[newDate] = value;
+    this.setState({
+      dateArray: tempArr,
+      editMode: false,
+      editDate: ''
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -77,7 +100,8 @@ class App extends Component {
                   toggleEditMode={this.toggleEditMode}
                   editTask={this.editTask}
                   removeTask={this.removeTask}
-                  tasks={this.state.taskArray} />
+                  tasks={this.state.taskArray}
+                  editDate={this.editDate} />
       </div>
     );
   }

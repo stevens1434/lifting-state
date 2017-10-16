@@ -35,10 +35,16 @@ class TaskAdder extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          New Task: <input type="text" value={this.state.taskName} onChange={this.handleChange} />
-        </label> <input type="submit" value="Add" />
+      <form className="form-style" onSubmit={this.handleSubmit}>
+        <ul>
+          <li>
+            <input type="text" name="field1" value={this.state.taskName} onChange={this.handleChange} className="field-style field-split align-left" placeholder="New Task..." />
+            <input type="date" name="field2" value={this.state.taskName} onChange={this.handleChange} className="field-style field-split align-right" placeholder="Due Date..." />
+          </li>
+          <li>
+            <input type="submit" value="Add Task" />
+          </li>
+        </ul>
       </form>
     );
   }

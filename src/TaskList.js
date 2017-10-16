@@ -11,7 +11,9 @@ class TaskList extends Component {
     // storage of the newTaskName when a user wants to edit a
     // task.
     this.state = {
-      newTaskName: ''
+    newTaskName: '',
+    date: 10/15/2017,
+    newDate: ''
     };
 
     // Binders for 'this'
@@ -19,6 +21,9 @@ class TaskList extends Component {
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
+    this.editDateClick = this.editDateClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.editDateSubmit = this.editDateSubmit.bind(this);
   }
 
   // This is the local function that handles the DONE click event
@@ -51,10 +56,30 @@ class TaskList extends Component {
     e.preventDefault();
     this.setState({newTaskName: e.target.value});
   }
+  handleDateChange(e) {
+    e.preventDefault();
+    this.setState({newDate: e.target.value});
+  }
+
+  editDateClick(e) {
+    e.preventDefault();
+    var key = e.target.getAttribute('data-key');
+    console.log("key: " + key);
+    this.props.toggleEditMode(key);
+  }
+
+  editDateSubmit(e) {
+    e.preventDefault();
+    var key = e.target.getAttribute('data-key');
+    var value = this.state.newDate;
+    this.props.editDate(key, value);
+    this.setState({newDate: ''});
+  }
+
 
   render() {
     return (
-      <div>
+      <div id="container">
         { // Here we start mapping tasks to little boxes
           this.props.tasks.map((item, index) => {
             // We branch on editMode and only make a textbox for the one clicked
@@ -62,6 +87,10 @@ class TaskList extends Component {
               return (
                 <div className="listItem" key={index}>
                   <input type="text" value={this.state.newTaskName} placeholder={item} onChange={this.handleChange} />
+                  <br/>
+                  <input type="date" placeholder={this.state.date} onChange={this.handleDateChange} data-key={index} />
+                  <br/>
+                  <a onClick={this.editDateSubmit} data-key={index} > [Save Date] </a>
                   <a onClick={this.handleEditSubmit} data-key={index} > [Save Changes] </a>
                   <a onClick={this.handleDoneClick} data-key={index} >[Done] </a>
                 </div>
@@ -71,6 +100,10 @@ class TaskList extends Component {
               return (
                 <div className="listItem" key={index}>
                   {item}
+                  <br/>
+                  {this.state.date}
+                  <br/>
+                  <a onClick={this.editDateClick} data-key={index}> [Edit Date] </a>
                   <a onClick={this.handleEditClick} data-key={index} > [Edit] </a>
                   <a onClick={this.handleDoneClick} data-key={index} >[Done] </a>
                 </div>
