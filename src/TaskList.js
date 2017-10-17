@@ -12,7 +12,7 @@ class TaskList extends Component {
     // task.
     this.state = {
     newTaskName: '',
-    date: 10/15/2017,
+    date: '10/15/2017',
     newDate: ''
     };
 
@@ -76,6 +76,13 @@ class TaskList extends Component {
     this.setState({newDate: ''});
   }
 
+  // convertDate(e) {
+  //   let date = ({this.state.date}*1000)
+  // }
+
+  // window.onload = convertDate();
+
+
 
   render() {
     return (
@@ -88,7 +95,7 @@ class TaskList extends Component {
                 <div className="listItem" key={index}>
                   <input type="text" value={this.state.newTaskName} placeholder={item} onChange={this.handleChange} />
                   <br/>
-                  <input type="date" placeholder={this.state.date} onChange={this.handleDateChange} data-key={index} />
+                  <input type="text" placeholder={this.state.date} onChange={this.handleDateChange} data-key={index} />
                   <br/>
                   <a onClick={this.editDateSubmit} data-key={index} > [Save Date] </a>
                   <a onClick={this.handleEditSubmit} data-key={index} > [Save Changes] </a>

@@ -21,15 +21,15 @@ class TaskAdder extends Component {
 
   // This is the local function that handles the text box change event
   // It is required for the text input to render correctly
-  handleChange(event) {
-    this.setState({taskName: event.target.value});
+  handleChange(event) { //starts here -----1----- //update state on every key click
+    this.setState({taskName: event.target.value}); //sets taskName state
   }
   // This is the local function that handles the ADD click event
   // It calls the method passed in from the parent, then updates local state
-  handleSubmit(event) {
+  handleSubmit(event) { //THEN here -----2----- //submit
     console.log('A name was submitted: ' + this.state.taskName);
     event.preventDefault();
-    this.props.addNewTask(this.state.taskName);
+    this.props.addNewTask(this.state.taskName); //-----3-----send taskName to App.js
     this.setState({taskName: ''});
   }
 

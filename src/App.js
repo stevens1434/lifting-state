@@ -35,11 +35,11 @@ class App extends Component {
 
   // Method called by TaskAdder when the Add button is clicked
   // Passed in via props
-  addNewTask(taskName) {
-    var temp = this.state.taskArray;
-    temp.push(taskName);
+  addNewTask(taskName) { //-----3-----send taskName from TaskAdder.js component
+    var temp = this.state.taskArray; //temp Arr
+    temp.push(taskName); //add taskName to temp ARr
     // These this.setState calls require those bind() lines above
-    this.setState({taskArray: temp});
+    this.setState({taskArray: temp}); //re render <div>s below with new info
   }
 
   // Method called by TaskList when the Done link is clicked
@@ -75,15 +75,17 @@ class App extends Component {
 
   toggleEditDate(taskId) {
     console.log("App::toggleEditMode");
+    console.log(this.state.date)
     this.setState({
       editMode: true,
       editId: taskId
     });
   }
 
-  editDate(newDate, value) {
+  editDate(key, value) {
     var tempArr = this.state.dateArray;
-    tempArr[newDate] = value;
+    tempArr[key] = value;
+    console.log("____tempArr in editDate()" + tempArr)
     this.setState({
       dateArray: tempArr,
       editMode: false,
@@ -92,8 +94,8 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
+    return ( //-----4----- re-render after the end of addNewTask()
+      <div className="App">  //-----0-----passes addNewTask() to TaskAdder component
         <TaskAdder className="TaskAdder" addNewTask={this.addNewTask}/>
         <TaskList editMode={this.state.editMode}
                   editId={this.state.editId}
@@ -101,6 +103,8 @@ class App extends Component {
                   editTask={this.editTask}
                   removeTask={this.removeTask}
                   tasks={this.state.taskArray}
+                  datArray={this.state.dateArray}
+                  toggleEditDate={this.toggleEditDate}
                   editDate={this.editDate} />
       </div>
     );
